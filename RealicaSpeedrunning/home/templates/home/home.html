@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                text-align: center;
+            }
+        </style>
+        <title>RealicaSpeedrunning</title>
+        <body>
+            <div>
+                <h1>Welcome, {{ user.username }}!</h1>
+            </div>
+            <div>
+                <p>This is the main page.</p>
+                <p>Writting test is <a href="/test">here</a></p>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <th>Best overall score</th>
+                        <th>Typing accuracy</th>
+                    </tr>
+                    {% if members %}
+                        {% for member in members %}
+                            <tr>
+                                <td>{{ member.name }}</td>
+                                <td>{{ member.top_overall }}/100</td>
+                                <td>{{ member.accuracy }}%</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td>No data</td>
+                        <td>No data</td>
+                        <td>No data</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </body>
+    </head>
+</html>

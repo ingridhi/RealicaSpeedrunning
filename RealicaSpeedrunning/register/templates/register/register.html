@@ -1,0 +1,12 @@
+{% block title %}
+Create an account
+{% endblock %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Already have an account? Log in <a href="/login">here</a><p/>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+{% endblock %}

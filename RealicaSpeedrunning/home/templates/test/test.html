@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <body>
+            <h3>This is the test page. Choose test:</h3>
+            <form method="post" action="/test/">
+                {% csrf_token %}
+                <button type="submit", name="test-type", value="1881-1890">Saksakeelne kool</button>
+                <button type="submit", name="test-type", value="1890-1918">Venestamisaegne kool</button>
+                <button type="submit", name="test-type", value="1918-1920">Wabadussõjaaegne kool</button>
+                <button type="submit", name="test-type", value="1921-1940">I vabariigiaegne kool</button>
+                <button type="submit", name="test-type", value="1941-1950">Sõjaaegne ja sõjajärgne kool</button>
+                <button type="submit", name="test-type", value="1951-1960">Nõukogudeaegne kool 50-ndad</button>
+                <button type="submit", name="test-type", value="1961-1970">Nõukogudeaegne kool 60-ndad</button>
+                <button type="submit", name="test-type", value="1971-1980">Nõukogudeaegne kool 70-ndad</button>
+                <button type="submit", name="test-type", value="1981-1990">Nõukogudeaegne kool 80-ndad</button>
+                <button type="submit", name="test-type", value="1991-">Taasiseseisvumisjärgne kool</button>
+            </form>
+            <div>
+                <p>
+                    {% if text %}
+                        {{ text }}
+                    {% endif %}
+                </p>
+            </div>
+        </body>
+    </head>
+</html>
