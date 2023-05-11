@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from register.models import Member
+import time as t
 
 # Create your views here.
 
@@ -13,11 +14,50 @@ def mainview(request):
     else:
         return redirect('/login')
 
-def testview(request):    
-    if not request.user.is_authenticated:
-        return redirect('/login')
+def testview(request):
+
+    # def spellcheck(a, b):
+    #     a = a.split(' ') 
+    #     b = b.split(' ')
+    #     wordbyword = []
+    #     mistakesbyword = []
+
+    #     if len(b) != len(a):
+    #         if len(b) < len(a):
+    #             for i in range(len(a) - len(b)):
+    #                 b.append('')
+    #         else:
+    #             for i in range(len(b) - len(a)):
+    #                 del b[len(a)]
+
+    #     for i in range(len(a)):
+    #         mistakesbyword.append(0)
+    #         if len(b[i]) != len(a[i]):
+    #             if len(b[i]) < len(a[i]):
+    #                 for j in range(len(a[i]) - len(b[i])):
+    #                     b[i] += ' '
+    #                     mistakesbyword[i] += 1
+    #             else:
+    #                 while len(b[i]) != len(a[i]):
+    #                     b[i] = b[i][0:len(b[i]) - 1]
+    #                     mistakesbyword[i] += 1
+
+    #     for i in range(len(a)):
+    #         full = len(a[i])
+    #         hits = 0
+    #         for j in range(len(a[i])):
+    #             if b[i][j] == a[i][j]:
+    #                 hits += 1
+    #             else:
+    #                 hits -= 1
+
+    #         hits -= mistakesbyword[i]
+    #         wordbyword.append(hits/full*100)
+
+    #     overallscore = f'{round(sum(wordbyword)/len(wordbyword))}%' if sum(wordbyword)/len(wordbyword) >= 0 else '0%'
+    #     return overallscore
     
-    elif request.user.is_authenticated and request.POST.get('test-type'):
+    if request.user.is_authenticated:
         tests = {
             '1881-1890': '1872. aastal asutati fond Tallinna Peetri Reaalkooli rajamiseks Peeter I 200. sünniaastapäevaks. 1881. aasta sügisel alustaski saksakeelne poeglaste keskkool tööd. Esimeseks direktoriks sai matemaatikaõpetaja Peter Osse. 1881. aasta suvel määrati õppenõukogus põhiaineteks matemaatika, vene keel, joonistamine, geograafia, prantsuse keel, saksa keel ja loodusteadused. Esimesel aastal võeti õpilasi vastu vaid teise ning kolmandasse klassi, järgmisel aastal tuli juurde neljas klass, kus lisandusid õppeainetena füüsika ja inglise keel. Seoses venestuspoliitikaga hakati alates 1886. a jaanuarist õpetama märkimisväärselt rohkem vene keeles. 1883. aastal valmis arhitektide Max Hoeppeneri ja Carl Jacoby projekteeritud uus koolihoone, mida kasutatakse tänaseni. Kuni selle ajani üüris kool ruume vanalinnas Laial tänaval. 1885. aastal lõpetas esimene lend kuue õpilasega. Selle lennu vilistlane on esimene eestlasest realist Mihkel Vitsut.',
             '1890-1918': '19. sajandi viimasel kümnendil alustas tsaar Aleksander III venestuspoliitikat, mille eesmärgiks oli kõigi impeeriumi rahvaste ühtseks assimileerimine. Selle tõttu muudeti 1890. aastal kooli nimi ümber Revelskoje Petrovskoje Utšilišeks. Vene õppekeelele üleminekuga venitati, kuid 1890. aastal sai see siiski teoks. Aasta varem määrati kooli uueks direktoriks Wilhelm Petersen, kes oli ametis 1915. aastani, mis teeb temast kõige kauem ametis olnud Reaalkooli direktori. Koolivormi moodustasid must kuub, nahkrihm kullatud plaadiga ning must oranži kandiga müts, ees kuldsed ristatud tammelehed tähtedega ,,РПУ”. 1905. aasta revolutsiooni mõjutusena suurenes Reaalkooli õpilaste poliitiline aktiivsus. Võeti osa tööliste suurstreikidest ning pandi alus salarühmitusele Kommuuna. Vabatahtliku ainena hakati 1906. aastal õpetama eesti keelt. 1918. aastal jagunes Peetri Reaalkool kaheks – Eesti Reaalgümnaasiumiks ja Saksa Reaalgümnaasiumiks. Reaalkoolis oli populaarne ka huvitegevus, koolil oli oma orkester, õpilaskoor, võimlemisrühm, jalgpallimeeskond, vehklemisklubi ning maadlusring, kust sirgus Eesti kuulsamaid maadlejaid Georg Lurich.',
@@ -30,11 +70,32 @@ def testview(request):
             '1981-1990': '1980. aastatel ei tekkinud Tallinna 2. Keskkoolis uusi traditsioone, aga olemasolevate tähistamine muutus vabamaks. 1982. aastal mindi lõpukellale koolivormi asemel rahvariietes, mis oli midagi enneolematut - linnas ringi joostes tegid turistid pilti ja trammid peatusid, et abituriente vaadata. Külastati ka Reaali Poisi endist asukohta, kuhu viidi lilli ja väikeseid pilte, mille hiljem õpetajad kokku korjasid, et pahandusi ei tekiks. 1981. aasta oli eriline Reaalkooli jaoks, sest täitus 100 aastat kooli asutamisest. Selle puhul peeti Estonia kontserdisaalis suur juubeliaktus. Lisaks sellele toimus 25. septembril koolis juubelikontsert vilistlastega ning novembris võtsid Tallinna 2., Pärnu 2., Riia 2., ja Vilniuse 2. Keskkool mõõtu korvpallis ja võrkpallis. Reaalkooli poisid ja tüdrukud olid mõlemal alal kõige edukamad.',
             '1991-': 'Taasiseseisvumine tõi suuri muutusi nii Eestile kui Reaalile. Mitmed keelatud traditsioonid taastati ja loodi mitmeid uusi. 1990. aastal muudeti kooli nimi Tallinna Reaalkooliks. Sama aasta kevadel taaspaigaldati aulasse marmortahvel. 1993. aastal avati ametlikult uus Poisi kuju. Lõpumärgil IIK kujutis muutus R-täheks 1990. aastal ning 2001. aastal muutus märgi kujundus selliseks, nagu see oli enne Teist maailmasõda. Uue traditsioonina on alates 1995. aastast juurdunud rebaste ristimine. 2000. aastast pärineb Reaalis veel üks uus traditsioon – sõita terve gümnaasiumiga teatrisse. Väga oluliseks sündmuseks Reaali kooliaastakalendris on saanud kooli sünnipäeva tähistamine 29. septembril. Nagu alati Reaali ajaloos, leiavad reaalikad aktiivse õppimise kõrvalt aega ja tahtmist ka loomingu ning spordiga tegelemiseks ning teenivad oma tulemuste eest tunnustust nii Eestis kui välismaal.'
         }
-        request.session['text'] = tests.get(request.POST.get('test-type'))
-        return redirect('/test')
-    
-    try:
-        return render(request, 'test/test.html', {'text': request.session.pop('text')})
-    
-    except:
-        return render(request, 'test/test.html')
+        if request.POST.get('action-end'):
+            ctx = {
+                'timedelta': round(t.time() - request.session['start-time'], 1),
+                'usertext': request.POST.get('usertext'),
+                'text': request.session['test'],
+                # 'score': spellcheck(request.session['test'], request.POST.get('usertext'))     
+            }
+            return render(request, 'test/test.html', ctx)
+
+        elif request.POST.get('action-start'):
+            ctx = {
+                'text': request.session['test'],
+                'state': request.POST.get('action-start')
+            }
+            request.session['start-time'] = t.time()
+            return render(request, 'test/test.html', ctx)
+        
+        elif request.POST.get('test-type'):
+            ctx = {
+                'text': tests.get(request.POST.get('test-type'))
+            }
+            request.session['test'] = tests.get(request.POST.get('test-type'))
+            return render(request, 'test/test.html', ctx)
+        
+        else:
+            return render(request, 'test/test.html')                
+            
+    else:
+        return redirect('/login')

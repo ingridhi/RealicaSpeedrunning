@@ -19,7 +19,38 @@
             <div>
                 <p>
                     {% if text %}
-                        {{ text }}
+                        <div>
+                            {{ text }}
+                        </div>
+                        {% if not state %}
+                        <div>
+                            <form method="post" action="/test/">
+                                {% csrf_token %}
+                                <button type="submit", name="action-start", value="start">Start test</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                        {% if state %}
+                        <div>
+                            <form method="post" action="/test/">
+                                {% csrf_token %}
+                                <textarea name="usertext" cols="256" rows="10"></textarea>
+                                
+                                <button type="submit", name="action-end", value="end">End test</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                        {% if usertext %}
+                        <div>
+                            <h4>Your results:</h4>
+                                <h6>Written text:</h6>
+                                    <p>{{ usertext }}</p>
+                                <h6>Time:</h6>
+                                    <p>{{ timedelta }} seconds</p>
+                                <!-- <h6>Score:</h6>
+                                    <p>{{ score }}</p> -->
+                        </div>
+                        {% endif %}
                     {% endif %}
                 </p>
             </div>
