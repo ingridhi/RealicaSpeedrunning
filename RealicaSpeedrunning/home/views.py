@@ -16,46 +16,24 @@ def mainview(request):
 
 def testview(request):
 
-    # def spellcheck(a, b):
-    #     a = a.split(' ') 
-    #     b = b.split(' ')
-    #     wordbyword = []
-    #     mistakesbyword = []
+    def spellcheck(string, correct):
+        s, c = [], []
+        stats = {'p': 0}
 
-    #     if len(b) != len(a):
-    #         if len(b) < len(a):
-    #             for i in range(len(a) - len(b)):
-    #                 b.append('')
-    #         else:
-    #             for i in range(len(b) - len(a)):
-    #                 del b[len(a)]
+        for i in string:
+            s.append(i)
 
-    #     for i in range(len(a)):
-    #         mistakesbyword.append(0)
-    #         if len(b[i]) != len(a[i]):
-    #             if len(b[i]) < len(a[i]):
-    #                 for j in range(len(a[i]) - len(b[i])):
-    #                     b[i] += ' '
-    #                     mistakesbyword[i] += 1
-    #             else:
-    #                 while len(b[i]) != len(a[i]):
-    #                     b[i] = b[i][0:len(b[i]) - 1]
-    #                     mistakesbyword[i] += 1
+        for i in correct:
+            c.append(i)
 
-    #     for i in range(len(a)):
-    #         full = len(a[i])
-    #         hits = 0
-    #         for j in range(len(a[i])):
-    #             if b[i][j] == a[i][j]:
-    #                 hits += 1
-    #             else:
-    #                 hits -= 1
-
-    #         hits -= mistakesbyword[i]
-    #         wordbyword.append(hits/full*100)
-
-    #     overallscore = f'{round(sum(wordbyword)/len(wordbyword))}%' if sum(wordbyword)/len(wordbyword) >= 0 else '0%'
-    #     return overallscore
+        for i in range(len(correct)):
+            try:
+                if s[i] == c[i]:
+                    stats['p'] += 1
+            except:
+                continue
+        score = round(stats.get("p") / len(correct) * 100)
+        return score
     
     if request.user.is_authenticated:
         tests = {
@@ -75,14 +53,15 @@ def testview(request):
                 'timedelta': round(t.time() - request.session['start-time'], 1),
                 'usertext': request.POST.get('usertext'),
                 'text': request.session['test'],
-                # 'score': spellcheck(request.session['test'], request.POST.get('usertext'))     
+                'score': spellcheck(request.POST.get('usertext'), request.session['test'])  
             }
             return render(request, 'test/test.html', ctx)
 
         elif request.POST.get('action-start'):
             ctx = {
                 'text': request.session['test'],
-                'state': request.POST.get('action-start')
+                'state': request.POST.get('action-start'),
+                'maxlen': str(len(request.session['test']))
             }
             request.session['start-time'] = t.time()
             return render(request, 'test/test.html', ctx)
