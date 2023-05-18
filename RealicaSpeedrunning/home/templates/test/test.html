@@ -49,8 +49,7 @@
                                 <h6>Score:</h6>
                                     <p>{{ score }}%</p>
                                 <h6>Words per second:</h6>
-                                    <p>{{ speed }} w/s</p>
-                                <p id="demo"></p>    
+                                    <p>{{ speed }} w/s</p>    
                         </div>
                         {% endif %}
                     {% endif %}
@@ -58,7 +57,7 @@
             </div>
             <script data-maxlen="{{maxlen}}">
                 var maxlen = document.currentScript.dataset.maxlen;
-                
+
                 function stop() {
                     var x = document.getElementById("usertext").value;
                     
