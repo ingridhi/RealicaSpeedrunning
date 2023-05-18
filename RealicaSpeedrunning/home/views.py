@@ -49,11 +49,13 @@ def testview(request):
             '1991-': 'Taasiseseisvumine tõi suuri muutusi nii Eestile kui Reaalile. Mitmed keelatud traditsioonid taastati ja loodi mitmeid uusi. 1990. aastal muudeti kooli nimi Tallinna Reaalkooliks. Sama aasta kevadel taaspaigaldati aulasse marmortahvel. 1993. aastal avati ametlikult uus Poisi kuju. Lõpumärgil IIK kujutis muutus R-täheks 1990. aastal ning 2001. aastal muutus märgi kujundus selliseks, nagu see oli enne Teist maailmasõda. Uue traditsioonina on alates 1995. aastast juurdunud rebaste ristimine. 2000. aastast pärineb Reaalis veel üks uus traditsioon – sõita terve gümnaasiumiga teatrisse. Väga oluliseks sündmuseks Reaali kooliaastakalendris on saanud kooli sünnipäeva tähistamine 29. septembril. Nagu alati Reaali ajaloos, leiavad reaalikad aktiivse õppimise kõrvalt aega ja tahtmist ka loomingu ning spordiga tegelemiseks ning teenivad oma tulemuste eest tunnustust nii Eestis kui välismaal.'
         }
         if request.POST.get('action-end'):
+            time = round(t.time() - request.session['start-time'], 1)
             ctx = {
-                'timedelta': round(t.time() - request.session['start-time'], 1),
+                'timedelta': time,
                 'usertext': request.POST.get('usertext'),
                 'text': request.session['test'],
-                'score': spellcheck(request.POST.get('usertext'), request.session['test'])  
+                'score': spellcheck(request.POST.get('usertext'), request.session['test']),
+                'speed': round(len(request.POST.get('usertext').split()) / time, 1)
             }
             return render(request, 'test/test.html', ctx)
 
@@ -61,7 +63,8 @@ def testview(request):
             ctx = {
                 'text': request.session['test'],
                 'state': request.POST.get('action-start'),
-                'maxlen': str(len(request.session['test']))
+                'maxlen': str(len(request.session['test'])),
+                'writentext': '',
             }
             request.session['start-time'] = t.time()
             return render(request, 'test/test.html', ctx)

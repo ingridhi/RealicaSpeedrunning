@@ -34,9 +34,8 @@
                         <div>
                             <form method="post" action="/test/">
                                 {% csrf_token %}
-                                <textarea name="usertext" cols="256" rows="10" maxlength={{maxlen}}></textarea>
-                                
-                                <button type="submit", name="action-end", value="end">End test</button>
+                                <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()"></textarea>
+                                <button type="submit", id="submit", name="action-end", value="end">End test</button>
                             </form>
                         </div>
                         {% endif %}
@@ -49,11 +48,25 @@
                                     <p>{{ timedelta }} seconds</p>
                                 <h6>Score:</h6>
                                     <p>{{ score }}%</p>
+                                <h6>Words per second:</h6>
+                                    <p>{{ speed }} w/s</p>
+                                <p id="demo"></p>    
                         </div>
                         {% endif %}
                     {% endif %}
                 </p>
             </div>
+            <script data-maxlen="{{maxlen}}">
+                var maxlen = document.currentScript.dataset.maxlen;
+                
+                function stop() {
+                    var x = document.getElementById("usertext").value;
+                    
+                    if (x.length >= Number(maxlen)) {
+                        document.getElementById('submit').click();
+                    }
+                }
+            </script>
         </body>
     </head>
 </html>
