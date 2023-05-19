@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <style>
+            .testbutton {
+                background-color: #BFD1DF;
+                color: #35455D;
+            }
+
+            .homebutton {
+                background-color: #CED2C2;
+                color: #35455D;
+                position: absolute;
+                left: 1700px;
+            }
+        </style>
+
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
         <body>
-            <h3>This is the test page. Choose test:</h3>
-            <form method="post" action="/test/">
-                {% csrf_token %}
-                <button type="submit", name="test-type", value="1881-1890">Saksakeelne kool</button>
-                <button type="submit", name="test-type", value="1890-1918">Venestamisaegne kool</button>
-                <button type="submit", name="test-type", value="1918-1920">Wabadussõjaaegne kool</button>
-                <button type="submit", name="test-type", value="1921-1940">I vabariigiaegne kool</button>
-                <button type="submit", name="test-type", value="1941-1950">Sõjaaegne ja sõjajärgne kool</button>
-                <button type="submit", name="test-type", value="1951-1960">Nõukogudeaegne kool 50-ndad</button>
-                <button type="submit", name="test-type", value="1961-1970">Nõukogudeaegne kool 60-ndad</button>
-                <button type="submit", name="test-type", value="1971-1980">Nõukogudeaegne kool 70-ndad</button>
-                <button type="submit", name="test-type", value="1981-1990">Nõukogudeaegne kool 80-ndad</button>
-                <button type="submit", name="test-type", value="1991-">Taasiseseisvumisjärgne kool</button>
-            </form>
+            <h3 style="position:absolute; top:10px; left:20px">Tule ja katseta, kui julged. Vali tekst:</h3>
+            <div>
+                <form method="post" action="/home/">
+                    {% csrf_token %}
+                        <button type="submit" class="homebutton">Koju</button>
+                </form>
+            </div>
+            <div style="position:absolute; left:50px; top:100px">
+                <form method="post" action="/test/">
+                    {% csrf_token %}
+                        <dl>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1881-1890">Saksakeelne kool</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1890-1918" style="position:relative; top:10px">Venestamisaegne kool</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1918-1920" style="position:relative; top:20px">Wabadussõjaaegne kool</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1921-1940" style="position:relative; top:30px">I vabariigiaegne kool</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1941-1950" style="position:relative; top:40px">Sõjaaegne ja sõjajärgne kool</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1951-1960" style="position:relative; top:50px">Nõukogudeaegne kool 50-ndad</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1961-1970" style="position:relative; top:60px">Nõukogudeaegne kool 60-ndad</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1971-1980" style="position:relative; top:70px">Nõukogudeaegne kool 70-ndad</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1981-1990" style="position:relative; top:80px">Nõukogudeaegne kool 80-ndad</button></dt>
+                            <dt><button type="submit" class="testbutton" name="test-type" value="1991-" style="position:relative; top:90px">Taasiseseisvumisjärgne kool</button></dt>
+                        </dl>    
+                </form>
+            </div>
             <div>
                 <p>
                     {% if text %}
@@ -35,7 +63,7 @@
                             <form method="post" action="/test/">
                                 {% csrf_token %}
                                 <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()"></textarea>
-                                <button type="submit", id="submit", name="action-end", value="end">End test</button>
+                                <button type="submit" id="submit" name="action-end" value="end">End test</button>
                             </form>
                         </div>
                         {% endif %}
