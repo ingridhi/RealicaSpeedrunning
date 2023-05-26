@@ -1,17 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
+<lang="en">
+    <body>
         <style>
+    
             .testbutton {
+                border-radius: 10px;
+                border: 2px solid #35455D;
                 background-color: #BFD1DF;
                 color: #35455D;
             }
 
             .homebutton {
+                border-radius: 10px;
+                border: 2px solid #4a532e;
                 background-color: #CED2C2;
                 color: #35455D;
                 position: absolute;
                 left: 1700px;
+            }
+
+            .textarea {
+                position: absolute;
+                top: 100px;
+                left: 500px;
+                width: 1100px;
+            }
+
+            .startendbutton {
+                border-radius: 10px;
+                border: 2px solid #4a532e;
+                background-color: #CED2C2;
+                color: #35455D;
+            }
+
+            .uncopytext {
+                position: absolute;
+                top: 100px;
+                left: 500px;
+                width: 1100px;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
         </style>
 
@@ -19,7 +51,7 @@
         {% bootstrap_css %}
         {% bootstrap_javascript %}
 
-        <body>
+        <head>
             <h3 style="position:absolute; top:10px; left:20px">Tule ja katseta, kui julged. Vali tekst:</h3>
             <div>
                 <form method="post" action="/home/">
@@ -47,37 +79,33 @@
             <div>
                 <p>
                     {% if text %}
-                        <div>
+                        <div class="uncopytext">
                             {{ text }}
+                            {% if not state %}
+                                <form method="post" action="/test/">
+                                    {% csrf_token %}
+                                    <button class="startendbutton" type="submit", name="action-start", value="start">Alusta testi</button>
+                                </form>
+                            {% endif %}
+                            {% if state %}
+                                <form method="post" action="/test/">
+                                    {% csrf_token %}
+                                    <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()" style="width: 1100px; resize: none;"></textarea>
+                                    <button class="startendbutton" type="submit" id="submit" name="action-end" value="end">Lõpeta test</button>
+                                </form>
+                            {% endif %}
                         </div>
-                        {% if not state %}
-                        <div>
-                            <form method="post" action="/test/">
-                                {% csrf_token %}
-                                <button type="submit", name="action-start", value="start">Start test</button>
-                            </form>
-                        </div>
-                        {% endif %}
-                        {% if state %}
-                        <div>
-                            <form method="post" action="/test/">
-                                {% csrf_token %}
-                                <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()"></textarea>
-                                <button type="submit" id="submit" name="action-end" value="end">End test</button>
-                            </form>
-                        </div>
-                        {% endif %}
                         {% if usertext %}
-                        <div>
-                            <h4>Your results:</h4>
-                                <h6>Written text:</h6>
+                        <div class="textarea" style="position: relative; top: 450px;">
+                            <h4>Sinu tulemus:</h4>
+                                <h6>Kirjutatud tekst:</h6>
                                     <p>{{ usertext }}</p>
-                                <h6>Time:</h6>
-                                    <p>{{ timedelta }} seconds</p>
-                                <h6>Score:</h6>
+                                <h6>Aeg:</h6>
+                                    <p>{{ timedelta }} sekundit</p>
+                                <h6>Skoor:</h6>
                                     <p>{{ score }}%</p>
-                                <h6>Words per second:</h6>
-                                    <p>{{ speed }} w/s</p>    
+                                <h6>Sõnu sekundis:</h6>
+                                    <p>{{ speed }} sõnu sekundis</p>    
                         </div>
                         {% endif %}
                     {% endif %}
@@ -94,6 +122,10 @@
                     }
                 }
             </script>
-        </body>
-    </head>
+        </head>
+    </body>
 </html>
+
+<!-- Elu on ilus nagu peldik puude vilus
+Elu on lill kui sees on promill
+elu on lill kui pole till -->
