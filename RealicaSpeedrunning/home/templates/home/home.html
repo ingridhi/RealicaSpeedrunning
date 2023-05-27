@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <body class="body">
         <style>
             table, th, td {
                 border: 1px solid black;
                 text-align: center;
             }
+
+            body {
+                font-family: 'Times New Roman', Times, serif;
+            }
         </style>
         <title>RealicaSpeedrunning</title>
-        <body>
+        <head>
             <div>
                 <h1>Teretulemast, {{ user.username }}!</h1>
             </div>
             <div>
                 <p>See on avaleht.</p>
-                <p>Test asub siin <a href="/test">here</a></p>
+                <p>Test asub <a href="/test">siin</a></p>
             </div>
             <div>
                 <table>
                     <tr>
                         <th>Kasutajanimi</th>
-                        <th>Läbi aegade parim tulemus:</th>
+                        <th>Läbi aegade parim tulemus</th>
                         <th>Kirjutamistäpsus</th>
                     </tr>
                     {% if members %}
@@ -40,6 +44,6 @@
                     {% endif %}
                 </table>
             </div>
-        </body>
-    </head>
+        </head>
+    </body>
 </html>
