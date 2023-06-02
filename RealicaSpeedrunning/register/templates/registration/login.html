@@ -3,6 +3,7 @@
         <style>
             body {
                 font-family: 'Times New Roman', Times, serif;
+                background-color: #e2ddd9;
             }
 
             .login {
@@ -12,8 +13,8 @@
                 margin-top: 300px;
                 width: 500px;
                 text-align: center;
-                border: 3px solid black;
-                background-color: antiquewhite;
+                border: 3px solid #35455D;
+                background-color: #ECDDD0;
                 border-radius: 15px;
             }
         </style>
@@ -24,8 +25,8 @@
                 <form method="post" class="form-group">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <p style="font-size: 15px;">Omad juba kasutajat? Loo kasutaja <a href="/register">siin</a><p/>
-                    <button type="submit" class="btn btn-success" style="border: 3px solid black; border-radius: 10px; width: 120px; height: 30px; background-color: aquamarine; font-family: 'Times New Roman', Times, serif; font-size: 18px; font-weight: bold;">Logi sisse</button>
+                    <p style="font-size: 15px;">Omad juba kasutajat? Loo kasutaja <a href="/register">siin</a></p>
+                    <button type="submit" class="btn btn-success" style="border: 3px solid #35455D; border-radius: 10px; width: 120px; height: 30px; background-color: #CED2C2; font-family: 'Times New Roman', Times, serif; font-size: 18px; font-weight: bold;">Logi sisse</button>
                 </form>
             </div>
         </head>
