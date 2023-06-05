@@ -4,6 +4,7 @@
         <style>
             .body {
                 font-family: 'Times New Roman', Times, serif;
+                background-color: #e2ddd9;
             }
 
             .testbutton {
@@ -23,7 +24,8 @@
                 background-color: #CED2C2;
                 color: #35455D;
                 position: absolute;
-                left: 1800px;
+                right: 30px;
+                top: 30px
             }
 
             .textarea {
@@ -60,14 +62,15 @@
         {% bootstrap_javascript %}
 
         <head>
-            <h3 style="position:absolute; top:10px; left:20px">Tule ja katseta, kui julged. Vali tekst:</h3>
+            <h3 style="position:absolute; top: 25px; left: 47px; font-weight: bold;">Tule ja katseta, kui julged. </h3>
+            <h3 style="position:absolute; top: 75px; left: 47px; font-weight: bold;">Vali tekst: </h3>
             <div>
                 <form method="post" action="/home/">
                     {% csrf_token %}
                         <button type="submit" class="homebutton">Koju</button>
                 </form>
             </div>
-            <div style="position:absolute; left:50px; top:100px">
+            <div style="position:absolute; left:50px; top:120px">
                 <form method="post" action="/test/">
                     {% csrf_token %}
                         <dl>
