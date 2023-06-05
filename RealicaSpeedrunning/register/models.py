@@ -4,5 +4,5 @@ from django.db import models
 
 class Member(models.Model):
     name = models.CharField(max_length=255)
-    top_overall = models.IntegerField(default=0)
-    accuracy = models.IntegerField(default=0)
+    top_score = models.IntegerField(default=0)
+    top_accuracy = models.IntegerField(default=0)

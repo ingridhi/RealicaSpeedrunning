@@ -50,12 +50,26 @@ def testview(request):
         }
         if request.POST.get('action-end'):
             time = round(t.time() - request.session['start-time'], 1)
+            score = spellcheck(request.POST.get('usertext'), request.session['test'])
+            
+            for member in Member.objects.all():
+                if member.name == request.user.username:
+
+                    if member.top_score < score / time * 100:
+                        member.top_score = score / time * 100
+                        member.save()
+                    
+                    if member.top_accuracy < score:
+                        member.top_accuracy = score
+                        member.save()               
+
             ctx = {
                 'timedelta': time,
                 'usertext': request.POST.get('usertext'),
                 'text': request.session['test'],
                 'score': spellcheck(request.POST.get('usertext'), request.session['test']),
-                'speed': round(len(request.POST.get('usertext').split()) / time, 1)
+                'speed': round(len(request.POST.get('usertext').split()) / time, 1),
+                'members': Member.objects.all(),
             }
             return render(request, 'test/test.html', ctx)
 
