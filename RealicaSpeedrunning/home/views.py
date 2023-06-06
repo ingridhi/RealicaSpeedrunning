@@ -16,24 +16,23 @@ def mainview(request):
 
 def testview(request):
 
-    def spellcheck(string, correct):
-        s, c = [], []
-        stats = {'p': 0}
+    def spellcheck(a, b):
+        def min_dist(s1, s2):
 
-        for i in string:
-            s.append(i)
+            if s1 == len(a) or s2 == len(b):
+                return len(a) - s1 + len(b) - s2
 
-        for i in correct:
-            c.append(i)
+            
+            if a[s1] == b[s2]:
+                return min_dist(s1 + 1, s2 + 1)
 
-        for i in range(len(correct)):
-            try:
-                if s[i] == c[i]:
-                    stats['p'] += 1
-            except:
-                continue
-        score = round(stats.get("p") / len(correct) * 100)
-        return score
+            return 1 + min(
+                min_dist(s1, s2 + 1),      
+                min_dist(s1 + 1, s2),      
+                min_dist(s1 + 1, s2 + 1),  
+            )
+        
+        return min_dist(0, 0)
     
     if request.user.is_authenticated:
         tests = {
@@ -50,8 +49,20 @@ def testview(request):
         }
         if request.POST.get('action-end'):
             time = round(t.time() - request.session['start-time'], 1)
-            score = spellcheck(request.POST.get('usertext'), request.session['test'])
-            
+            usertext_as_list = request.POST.get('usertext').split()
+            text_as_list = request.session['test'].split()
+            accuracies = 0
+
+            while len(usertext_as_list) < len(text_as_list):
+                usertext_as_list.append('')
+
+            for i in range(len(text_as_list)):
+
+                mistakes = spellcheck(text_as_list[i], usertext_as_list[i])
+                accuracies += (len(text_as_list[i]) - mistakes) / len(text_as_list[i])
+
+            score = accuracies / len(text_as_list) * 100
+
             for member in Member.objects.all():
                 if member.name == request.user.username:
 
@@ -67,7 +78,7 @@ def testview(request):
                 'timedelta': time,
                 'usertext': request.POST.get('usertext'),
                 'text': request.session['test'],
-                'score': spellcheck(request.POST.get('usertext'), request.session['test']),
+                'score': round(score, 1),
                 'speed': round(len(request.POST.get('usertext').split()) / time, 1),
                 'members': Member.objects.all(),
             }

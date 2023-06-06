@@ -1,12 +1,35 @@
-{% block title %}
-Loo kasutaja
-{% endblock %}
+<html lang="en">
+    <body>
+        <style>
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                background-color: #e2ddd9;
+                color: #35455D;
+            }
 
-{% block content %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p>Omad juba kontot? Logi sisse <a href="/login">siin</a></p>
-        <button type="submit" class="btn btn-success">Registreeri</button>
-    </form>
-{% endblock %}
+            .register {
+                font-size: 20px;
+                font-weight: bold;
+                margin: auto;
+                margin-top: 300px;
+                width: 860px;
+                text-align: left;
+                border: 3px solid #35455D;
+                background-color: #ECDDD0;
+                border-radius: 15px;
+                padding: 10px;
+            }
+        </style>
+        <title>RealicaSpeedrunning - Registration</title>
+        <head>
+            <div class="register">
+                <form method="POST" class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p style="font-size: 15px;">Omad juba kontot? Logi sisse <a href="/login">siin</a></p>
+                    <button type="submit" class="btn btn-success" style="border: 3px solid #35455D; border-radius: 10px; width: 120px; height: 30px; background-color: #CED2C2; font-family: 'Times New Roman', Times, serif; font-size: 18px; font-weight: bold; color: #35455D;">Registreeri</button>
+                </form>
+            </div>
+        </head>
+    </body>
+</html>
