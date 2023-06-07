@@ -64,28 +64,32 @@
 
         <title>RealicaSpeedrunning - Tests</title>
         <head>
-            <h3 style="position:absolute; top: 25px; left: 47px; font-weight: bold;">Tule ja katseta, kui julged. </h3>
-                <h3 style="position:absolute; top: 75px; left: 47px; font-weight: bold;">Vali tekst: </h3>
+            <h3 style="position:absolute; top: 10px; left: 50px; font-weight: bold; font-size: 35px;">
+                <u>TULE JA KATSETA, KUI JULGED!</u>
+            </h3>
+                <h3 style="position:absolute; top: 75px; left: 120px; font-weight: bold; font-size: 32px;">Vali test</h3>
+                <img src="https://static.thenounproject.com/png/1563369-200.png" alt="No media found" style="height: 75px; width: 75x; position: absolute; left: 260px; top: 80px;"/>
+                <img src="https://i.ibb.co/gT20mz1/Nice-Png-marker-png-2464933.png" alt="No media found" style="height: 75px; width: 170px; position: absolute; top: 60px; left: 90px;"/>
                 <div>
                     <form method="post" action="/home/">
                         {% csrf_token %}
                             <button type="submit" class="homebutton">Koju</button>
                     </form>
                 </div>
-                <div style="position:absolute; left:50px; top:120px">
+                <div style="position:absolute; left:75px; top:150px; border: 5px solid #4a532e; border-radius: 10px; padding: 50px; padding-bottom: 200px; background-color: #ECDDD0;">
                     <form method="post" action="/test/">
                         {% csrf_token %}
                             <dl>
                                 <dt><button type="submit" class="testbutton" name="test-type" value="1881-1890">Saksakeelne kool</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1890-1918" style="position:relative; top:10px">Venestamisaegne kool</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1918-1920" style="position:relative; top:20px">Wabadussõjaaegne kool</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1921-1940" style="position:relative; top:30px">I vabariigiaegne kool</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1941-1950" style="position:relative; top:40px">Sõjaaegne ja sõjajärgne kool</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1951-1960" style="position:relative; top:50px">Nõukogudeaegne kool 50-ndad</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1961-1970" style="position:relative; top:60px">Nõukogudeaegne kool 60-ndad</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1971-1980" style="position:relative; top:70px">Nõukogudeaegne kool 70-ndad</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1981-1990" style="position:relative; top:80px">Nõukogudeaegne kool 80-ndad</button></dt>
-                                <dt><button type="submit" class="testbutton" name="test-type" value="1991-" style="position:relative; top:90px">Taasiseseisvumisjärgne kool</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1890-1918" style="position:relative; top:20px">Venestamisaegne kool</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1918-1920" style="position:relative; top:40px">Wabadussõjaaegne kool</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1921-1940" style="position:relative; top:60px">I vabariigiaegne kool</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1941-1950" style="position:relative; top:80px">Sõjaaegne ja sõjajärgne kool</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1951-1960" style="position:relative; top:100px">Nõukogudeaegne kool 50-ndad</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1961-1970" style="position:relative; top:120px">Nõukogudeaegne kool 60-ndad</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1971-1980" style="position:relative; top:140px">Nõukogudeaegne kool 70-ndad</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1981-1990" style="position:relative; top:160px">Nõukogudeaegne kool 80-ndad</button></dt>
+                                <dt><button type="submit" class="testbutton" name="test-type" value="1991-" style="position:relative; top:180px">Taasiseseisvumisjärgne kool</button></dt>
                             </dl>    
                     </form>
                 </div>
@@ -115,8 +119,13 @@
                                     <p>{{ usertext }}</p>
                                 <h6>Aeg:</h6>
                                     <p>{{ timedelta }} sekundit</p>
-                                <h6>Kirjutamistäpsus:</h6>
-                                    <p>{{ score }}%</p>
+                                {% if score > 0 %}
+                                    <h6>Kirjutamistäpsus:</h6>
+                                        <p>{{ score }}%</p>
+                                {% else %}
+                                    <h6>Kirjutamistäpsus:</h6>
+                                        <p>0%</p>
+                                {% endif %}
                                 <h6>Sõnu sekundis:</h6>
                                     <p>{{ speed }} sõnu sekundis</p>    
                         </div>
