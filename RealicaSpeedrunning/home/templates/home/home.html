@@ -34,32 +34,40 @@
         <title>RealicaSpeedrunning - Home</title>
         <head>
             <div>
-                <h1>Teretulemast, {{ user.username }}!</h1>
+                <h1 style="position: absolute; left: 200px; top: 20px; font-size: 45px;">
+                    Teretulemast, {{ user.username }}!
+                </h1>
             </div>
+            <p style="position: absolute; left: 200px; top: 150px; border: 5px solid #35455D; border-radius: 10px; padding: 10px;">
+                Mingi intrto lõik
+            </p>
             <div>
                 <form method="post" action="/test/" class="center">
                     {% csrf_token %}
-                        <button type="submit" class="button">Test</button>
+                        <button type="submit" class="button" style="position: absolute; left: 200px; top: 400px;">Test</button>
                 </form>
             </div>
             <div>
                 <form action="/logout/">
-                    <button type="submit" class="button" style="position: absolute; right: 30px; top: 30px;">Logout</button>
+                    <button type="submit" class="button" style="position: absolute; right: 30px; top: 30px; width: 100px;">Logi välja</button>
                 </form>
             </div>
-            <div>
-                <table style="border: 3px solid #35455D; border-radius: 7px; position:absolute; top: 150px">
+            <h3 style="position:absolute; top: 40px; left: 1000px; font-weight: bold; font-size: 25px;">
+               <u>Tulemused:</u>
+            </h3>
+            <div style="position: absolute; left: 1000px; top: 100px; width: 700px;">
+                <table style="border: 5px solid #4a532e; border-radius: 7px; padding: 7px; font-size: 17px;">
                     <tr>
-                        <th>Kasutajanimi</th>
-                        <th>Parim skoor</th>
-                        <th>Parim kirjutamistäpsus</th>
+                        <th style="padding: 7px;">Kasutajanimi</th>
+                        <th style="padding: 7px;">Parim skoor</th>
+                        <th style="padding: 7px;">Parim kirjutamistäpsus</th>
                     </tr>
                     {% if members %}
                         {% for member in members %}
                             <tr>
-                                <td>{{ member.name }}</td>
-                                <td>{{ member.top_score }}</td>
-                                <td>{{ member.top_accuracy }}%</td>
+                                <td style="padding: 7px;">{{ member.name }}</td>
+                                <td style="padding: 7px;">{{ member.top_score }}</td>
+                                <td style="padding: 7px;">{{ member.top_accuracy }}%</td>
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -70,9 +78,6 @@
                     </tr>
                     {% endif %}
                 </table>
-            </div>
-            <div>
-                <img src="https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&dpr=1&w=1000" alt="Media not found" width="500" height="500" style="position: absolute; left: 900px; top: 200px;"/>
             </div>
         </head>
     </body>

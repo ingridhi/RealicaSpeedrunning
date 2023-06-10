@@ -64,12 +64,13 @@
 
         <title>RealicaSpeedrunning - Tests</title>
         <head>
-            <h3 style="position:absolute; top: 10px; left: 50px; font-weight: bold; font-size: 35px;">
+            <!-- <h3 style="position:absolute; top: 10px; left: 50px; font-weight: bold; font-size: 35px;">
                 <u>TULE JA KATSETA, KUI JULGED!</u>
-            </h3>
-                <h3 style="position:absolute; top: 75px; left: 120px; font-weight: bold; font-size: 32px;">Vali test</h3>
-                <img src="https://static.thenounproject.com/png/1563369-200.png" alt="No media found" style="height: 75px; width: 75x; position: absolute; left: 260px; top: 80px;"/>
-                <img src="https://i.ibb.co/gT20mz1/Nice-Png-marker-png-2464933.png" alt="No media found" style="height: 75px; width: 170px; position: absolute; top: 60px; left: 90px;"/>
+            </h3> -->
+                <h3 style="position:absolute; top: 75px; left: 175px; font-weight: bold; font-size: 25px;">
+                    <u>Vali test</u>
+                </h3>
+                <img src="https://static.thenounproject.com/png/1563369-200.png" alt="No media found" style="height: 75px; width: 75x; position: absolute; left: 260px; top: 80px;"/>    
                 <div>
                     <form method="post" action="/home/">
                         {% csrf_token %}
@@ -96,43 +97,53 @@
             <div>
                 <p>
                     {% if text %}
+                        <h3 style="position:absolute; top: 35px; left: 500px; font-weight: bold; font-size: 25px;">
+                            <u>Testi tekst:</u>
+                        </h3>
                         <div class="uncopytext">
-                            {{ text }}
+                            <p style="background-color: #ECDDD0; font-size: 19px; font-weight: 500; border: 5px solid #35455D; border-radius: 10px; padding: 30px;">
+                                {{ text }}
+                            </p>
                             {% if not state %}
                                 <form method="post" action="/test/">
                                     {% csrf_token %}
-                                    <button class="startendbutton" type="submit", name="action-start", value="start">Alusta testi</button>
+                                    <button class="startendbutton" type="submit", name="action-start", value="start" style="position: relative; top: 20px;">Alusta testi</button>
                                 </form>
                             {% endif %}
                             {% if state %}
                                 <form method="post" action="/test/">
                                     {% csrf_token %}
-                                    <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()" spellcheck="false" style="width: 1100px; resize: none;"></textarea>
-                                    <button class="startendbutton" type="submit" id="submit" name="action-end" value="end">Lõpeta test</button>
+                                    <textarea name="usertext" id="usertext" cols="256" rows="10" maxlength="{{maxlen}}" onkeyup="stop()" spellcheck="false" style="width: 1100px; resize: none; font-size: 19px;"></textarea>
+                                    <button class="startendbutton" type="submit" id="submit" name="action-end" value="end" style="position: relative; top: 25px;">Lõpeta test</button>
                                 </form>
                             {% endif %}
                         </div>
                         {% if usertext %}
-                        <div class="textarea" style="position: relative; top: 450px;">
-                            <h4>Sinu tulemus:</h4>
-                                <h6>Kirjutatud tekst:</h6>
-                                    <p>{{ usertext }}</p>
-                                <h6>Aeg:</h6>
-                                    <p>{{ timedelta }} sekundit</p>
-                                {% if score > 0 %}
-                                    <h6>Kirjutamistäpsus:</h6>
-                                        <p>{{ score }}%</p>
-                                {% else %}
-                                    <h6>Kirjutamistäpsus:</h6>
-                                        <p>0%</p>
-                                {% endif %}
-                                <h6>Sõnu sekundis:</h6>
-                                    <p>{{ speed }} sõnu sekundis</p>    
+                        <div class="textarea" style="position: relative; top: 550px;">
+                            <h4 style="font-size: 25px; font-weight: bold;">
+                                <u>Sinu tulemus:</u>
+                            </h4>
+                                <div style="border: 5px solid #35455D; border-radius: 10px; margin-right: 920px; padding: 20px; position: relative; top: 20px;">
+                                    <h6 style="font-weight: bold;">Aeg:</h6>
+                                        <p>{{ timedelta }} sekundit</p>
+                                    {% if score > 0 %}
+                                        <h6 style="font-weight: bold;">Kirjutamistäpsus:</h6>
+                                            <p>{{ score }}%</p>
+                                    {% else %}
+                                        <h6 style="font-weight: bold;">Kirjutamistäpsus:</h6>
+                                            <p>0%</p>
+                                    {% endif %}
+                                    <h6 style="font-weight: bold;">Sõnu sekundis:</h6>
+                                        <p>{{ speed }} sõnu sekundis</p>
+                                </div>   
                         </div>
                         {% endif %}
+                    {% else %}
+                        <img src="https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&dpr=1&w=1000" alt="Media not found" width="500" height="500" style="position: absolute; left: 900px; top: 200px;"/>
                     {% endif %}
                 </p>
             </div>
+
             <script data-maxlen="{{maxlen}}">
                 var maxlen = document.currentScript.dataset.maxlen;
 
