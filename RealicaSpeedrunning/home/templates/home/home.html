@@ -59,6 +59,22 @@
             <div style="position: absolute; left: 1000px; top: 100px; width: 700px;">
                 <table style="border: 5px solid #4a532e; border-radius: 7px; padding: 7px; font-size: 17px;">
                     <tr>
+                        <th style="padding: 7px;">Sinu nimi</th>
+                        <th style="padding: 7px;">Sinu parim skoor</th>
+                        <th style="padding: 7px;">Sinu parim kirjutamistäpsus</th>
+                    </tr>
+                    {% for member in members %}
+                        {% if member.name == request.user.username %}
+                        <tr>
+                            <td style="padding: 7px;">{{ member.name }}</td>
+                            <td style="padding: 7px;">{{ member.top_score }}</td>
+                            <td style="padding: 7px;">{{ member.top_accuracy }}%</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <table style="position: absolute; top: 120px; border: 5px solid #4a532e; border-radius: 7px; padding: 7px; font-size: 17px;">
+                    <tr>
                         <th style="padding: 7px;">Kasutajanimi</th>
                         <th style="padding: 7px;">Parim skoor</th>
                         <th style="padding: 7px;">Parim kirjutamistäpsus</th>
