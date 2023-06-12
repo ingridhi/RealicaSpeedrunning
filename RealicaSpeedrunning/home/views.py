@@ -9,7 +9,31 @@ def goto_login(request):
 
 def mainview(request):
     if request.user.is_authenticated:
-        return render(request, 'home/home.html', {'members': Member.objects.all().values()})
+        all_members = []
+
+        for member in Member.objects.all().values():
+            all_members.append(member.get('top_score'))
+
+        all_members.sort()
+        all_members.reverse()
+
+        sorted_top_5 = []
+
+        for tulemus in all_members:
+            for member in Member.objects.all().values():
+                if member.get('top_score') == tulemus:
+                    sorted_top_5.append({'name': member.get('name'), 'top_score': tulemus, 'top_accuracy': member.get('top_accuracy')})
+
+        for member in Member.objects.all().values():
+            if member.get('name') == request.user.username:
+                user_tulemus = [member.get('name'), member.get('top_score'), member.get('top_accuracy')]
+
+        ctx = {
+            'members': sorted_top_5,
+            'tulemus': user_tulemus,
+        }
+        
+        return render(request, 'home/home.html', ctx)
     
     else:
         return redirect('/login')
@@ -72,7 +96,26 @@ def testview(request):
                     
                     if member.top_accuracy < score:
                         member.top_accuracy = score
-                        member.save()               
+                        member.save()
+
+            # all_members = []
+
+            # for member in Member.objects.all().values():
+            #     all_members.append(member.get('top_score'))
+
+            # all_members.sort()
+
+            # sorted_top_5 = []
+
+            # for tulemus in all_members:
+            #     for member in Member.objects.all().values():
+            #         if member.get('top_score') == tulemus:
+            #             sorted_top_5.append({'name': member.get('name'), 'top_score': tulemus, 'top_accuracy': member.get('top_accuracy')})
+
+            # for member in Member.objects.all().values():
+            #     if member.get('name') == request.user.username:
+            #         user_tulemus = [member.get('name'), member.get('top_score'), member.get('top_accuracy')]
+            # print(user_tulemus)
 
             ctx = {
                 'timedelta': time,
@@ -80,7 +123,6 @@ def testview(request):
                 'text': request.session['test'],
                 'score': round(score, 1),
                 'speed': round(len(request.POST.get('usertext').split()) / time, 1),
-                'members': Member.objects.all(),
             }
             return render(request, 'test/test.html', ctx)
 
@@ -102,7 +144,7 @@ def testview(request):
             return render(request, 'test/test.html', ctx)
         
         else:
-            return render(request, 'test/test.html')                
+            return render(request, 'test/test.html')         
             
     else:
         return redirect('/login')

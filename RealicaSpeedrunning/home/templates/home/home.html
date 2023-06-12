@@ -44,7 +44,7 @@
                 Mäng on loodud Reaali kõige lahedamate progejate Pauli, Chrisette ja Priscilla poolt!
             </p>
             
-            <img src="https://reaalkool.ee/wp-content/uploads/2022/11/IMG_20221026_102722-Cropped.jpg" alt="No media found" style="height: 375px; width: 600px; position: absolute; left: 200px; top: 500px;"/>    
+            <img src="https://reaalkool.ee/wp-content/uploads/2022/11/IMG_20221026_102722-Cropped.jpg" alt="No media found" style="height: 375px; width: 600px; position: absolute; left: 200px; top: 450px;"/>    
             <div>
                 <form method="post" action="/test/" class="center">
                     {% csrf_token %}
@@ -66,15 +66,19 @@
                         <th style="padding: 7px;">Sinu parim skoor</th>
                         <th style="padding: 7px;">Sinu parim kirjutamistäpsus</th>
                     </tr>
-                    {% for member in members %}
-                        {% if member.name == request.user.username %}
+                    {% if tulemus %}
                         <tr>
-                            <td style="padding: 7px;">{{ member.name }}</td>
-                            <td style="padding: 7px;">{{ member.top_score }}</td>
-                            <td style="padding: 7px;">{{ member.top_accuracy }}%</td>
+                            <td style="padding: 7px;">{{ tulemus.0 }}</td>
+                            <td style="padding: 7px;">{{ tulemus.1 }}</td>
+                            <td style="padding: 7px;">{{ tulemus.2 }}%</td>
                         </tr>
-                        {% endif %}
-                    {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td style="padding: 7px;">No data</td>
+                            <td style="padding: 7px;">No data</td>
+                            <td style="padding: 7px;">No data</td>
+                        </tr>
+                    {% endif %}
                 </table>
                 <table style="position: absolute; top: 120px; border: 5px solid #4a532e; border-radius: 7px; padding: 7px; font-size: 17px;">
                     <tr>
